@@ -13,16 +13,7 @@ const Layout = () => {
           ),
         }}
       />
-      <Tabs.Screen
-        name="scan"
-        options={{
-          title: "scan",
-          headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <SymbolView name="qrcode.viewfinder" tintColor={color} size={24} />
-          ),
-        }}
-      />
+
       <Tabs.Screen
         name="order"
         options={{

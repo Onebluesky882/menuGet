@@ -1,6 +1,11 @@
+import { SymbolView } from "expo-symbols";
 import { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import ScanTable from "@/components/Homepage_Widget/ScanTable";
+import { Board } from "@/components/Homepage_Widget/Bannner";
+import { Menu } from "@/components/Homepage_Widget/Menu";
+import TableQRCode from "@/lib/QrCodeGenerator";
 
 const menu = [
   { name: 1 },
@@ -14,6 +19,10 @@ const menu = [
 const Homepage = () => {
   const board = [{ name: 1 }, { name: 2 }, { name: 3 }];
   const [index, setIndex] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [shopId, setShopId] = useState<string | null>(null);
+  const [tableId, setTableId] = useState<string | null>(null);
+  const [tableSession, setTableSession] = useState<string | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -26,14 +35,21 @@ const Homepage = () => {
   const banner = board.slice(index, index + 1);
 
   return (
-    <SafeAreaView>
-      <View className=" px-2 gap-2">
+    <>
+      <SafeAreaView
+        style={{
+          paddingRight: 8,
+          paddingLeft: 8,
+          marginBottom: -20,
+        }}
+      >
+        <View className="border h-10 items-center flex-row justify-between w-full">
+          <Text> logo </Text>
+          <Text> option </Text>
+        </View>
+      </SafeAreaView>
+      <View className=" px-2 gap-2 relative  flex-1 ">
         <View className="flex items-center justify-center gap-2">
-          <View className="border h-10 items-center flex-row justify-between w-full">
-            <Text> logo </Text>
-            <Text> option </Text>
-          </View>
-
           {/* Banner */}
 
           <View className="h-10 w-full border">
@@ -52,63 +68,36 @@ const Homepage = () => {
           </View>
         </View>
         <View className="border w-full ">
-          <Text> Shops</Text>
+          <Text> Shops ตัวอย่าง</Text>
           <View>
-            <Text>list 1</Text>
-            <Text>list 2</Text>
-            <Text>list 3</Text>
-            <Text>list 4</Text>
+            <TableQRCode />
           </View>
         </View>
         <View className="border w-full ">
           <Text> Shops</Text>
-          <View>
-            <Text>list 1</Text>
-            <Text>list 2</Text>
-            <Text>list 3</Text>
-            <Text>list 4</Text>
-          </View>
         </View>
         <View className="border w-full ">
           <Text> Shops</Text>
-          <View>
-            <Text>list 1</Text>
-            <Text>list 2</Text>
-            <Text>list 3</Text>
-            <Text>list 4</Text>
-          </View>
         </View>
         <View className="border w-full ">
           <Text> Shops</Text>
-          <View>
-            <Text>list 1</Text>
-            <Text>list 2</Text>
-            <Text>list 3</Text>
-            <Text>list 4</Text>
-          </View>
+        </View>
+
+        <View className=" absolute  bottom-0 right-0 flex justify-center mr-3 mb-3 gap-1 ">
+          <ScanTable
+            open={open}
+            setOpen={setOpen}
+            setShopId={setShopId}
+            setTableId={setTableId}
+            shopId={shopId ?? ""}
+            tableId={tableId ?? ""}
+            tableSession={tableSession}
+            setTableSession={setTableSession}
+          />
         </View>
       </View>
-    </SafeAreaView>
+    </>
   );
 };
 
-const Menu = ({ item }: { item: number }) => {
-  return (
-    <View className="  w-1/3 ">
-      <View className="border rounded border-gray-300 shadow m-1 p-2 flex-row justify-center ">
-        <Text className=" ">menu {item}</Text>
-      </View>
-    </View>
-  );
-};
-
-const Board = ({ item }: { item: number }) => {
-  return (
-    <View className=" w-full ">
-      <View className="  rounded     p-2 flex-row justify-center ">
-        <Text className=" ">banner {item}</Text>
-      </View>
-    </View>
-  );
-};
 export default Homepage;
