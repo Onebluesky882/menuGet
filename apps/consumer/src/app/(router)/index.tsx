@@ -1,11 +1,10 @@
-import { SymbolView } from "expo-symbols";
 import { useEffect, useState } from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ScanTable from "@/components/Homepage_Widget/ScanTable";
 import { Board } from "@/components/Homepage_Widget/Bannner";
 import { Menu } from "@/components/Homepage_Widget/Menu";
-import TableQRCode from "@/lib/QrCodeGenerator";
+import TableQRCode from "@/lib/qrCodeGenerator";
 
 const menu = [
   { name: 1 },
@@ -67,22 +66,13 @@ const Homepage = () => {
             </View>
           </View>
         </View>
-        <View className="border w-full ">
-          <Text> Shops ตัวอย่าง</Text>
-          <View>
-            <TableQRCode />
-          </View>
-        </View>
-        <View className="border w-full ">
-          <Text> Shops</Text>
-        </View>
-        <View className="border w-full ">
-          <Text> Shops</Text>
-        </View>
-        <View className="border w-full ">
-          <Text> Shops</Text>
+
+        <View>
+          <Text className="text-center p-2 underline">ตัวอย่าง qrcode </Text>
+          <TableQRCode />
         </View>
 
+        {/* ScanTable */}
         <View className=" absolute  bottom-0 right-0 flex justify-center mr-3 mb-3 gap-1 ">
           <ScanTable
             open={open}
