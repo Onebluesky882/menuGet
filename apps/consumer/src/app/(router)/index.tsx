@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
-import { View, Text, Pressable } from "react-native";
+import { useState } from "react";
+import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ScanTable from "@/app/ScanTable";
-import { Board } from "@/components/Homepage_Widget/Bannner";
+import { Banner } from "@/components/Homepage_Widget/Bannner";
 import { Menu } from "@/components/Homepage_Widget/Menu";
 import TableQRCode from "@/lib/qrCodeGenerator";
 import { useStoreShop } from "@/store/useStoreShop";
-import { useRouter } from "expo-router";
 
 const menu = [
   { name: 1 },
@@ -18,22 +17,9 @@ const menu = [
 ];
 
 const Homepage = () => {
-  const router = useRouter();
-  const board = [{ name: 1 }, { name: 2 }, { name: 3 }];
-  const [index, setIndex] = useState(0);
   const [open, setOpen] = useState(false);
 
   const { shopId, tableId, tableSession, setTableSession } = useStoreShop();
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % board.length);
-    }, 3000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const banner = board.slice(index, index + 1);
 
   return (
     <>
@@ -52,12 +38,7 @@ const Homepage = () => {
       <View className=" px-2 gap-2 relative  flex-1 ">
         <View className="flex items-center justify-center gap-2">
           {/* Banner */}
-
-          <View className="h-10 w-full border">
-            {banner.map((i) => (
-              <Board key={i.name} item={i.name} />
-            ))}
-          </View>
+          <Banner />
 
           {/* shop */}
           <View className="  w-full ">

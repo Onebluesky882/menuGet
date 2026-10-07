@@ -6,7 +6,7 @@ import { showNotification } from "@/lib/showNotification";
 import Animated from "react-native-reanimated";
 import { usePulse } from "@/hooks/animation/useAnimation";
 import { CameraCard } from "../components/Homepage_Widget/CameraCardView";
-import { usePathname } from "expo-router";
+import { useRoomStore } from "@/store/useRoomOrder";
 
 type ScanTableProps = {
   open: boolean;
@@ -33,7 +33,9 @@ const ScanTable = ({
   const [scanned, setScanned] = useState(false);
   const scanningRef = useRef(false);
   const pulseStyle = usePulse();
-  const pathName = usePathname();
+
+  const setRoom = useRoomStore((state) => state.setRoom);
+  const setMembers = useRoomStore((state) => state.setMembers);
 
   // mock api shop name
   const handleScan = async (data: string) => {
@@ -52,7 +54,19 @@ const ScanTable = ({
       }
       setTableSession(shopId, tableId, tableSession);
       setScanned(true);
-
+      if (tableId) {
+        setRoom({
+          roomId: "test",
+          shopId,
+          tableId,
+        });
+        setMembers([
+          {
+            userId: "user-001",
+            name: "tob",
+          },
+        ]);
+      }
       await showNotification(
         `${shopId} ยินดีต้อนรับ`,
         `คุณอยู่โต๊ะ ${tableId}`,
@@ -66,7 +80,6 @@ const ScanTable = ({
     if (scanningRef.current) {
       return;
     }
-
     if (scanned) {
       return;
     }
@@ -94,7 +107,6 @@ const ScanTable = ({
         }}
       >
         <CameraCard
-          pathName={pathName}
           handleBarcodeScanned={handleBarcodeScanned}
           permission={permission}
           requestPermission={requestPermission}

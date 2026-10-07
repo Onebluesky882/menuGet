@@ -5,7 +5,6 @@ type Props = {
   shopId: string;
   tableId: string;
   tableSession: string;
-  pathName: string;
   setOpen: (toggle: boolean) => void;
 };
 
@@ -13,7 +12,6 @@ export const TableReservedCard = ({
   shopId,
   tableId,
   tableSession,
-  pathName,
   setOpen,
 }: Props) => {
   const router = useRouter();

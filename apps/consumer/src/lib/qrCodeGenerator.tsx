@@ -9,7 +9,7 @@ const TableQRCode = () => {
 
   return (
     <View className="items-center">
-      <QRCode value={urlOnlyShopId} size={250} />
+      <QRCode value={urlShopId} size={250} />
     </View>
   );
 };
