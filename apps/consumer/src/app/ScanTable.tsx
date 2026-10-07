@@ -5,7 +5,8 @@ import { useRef, useState } from "react";
 import { showNotification } from "@/lib/showNotification";
 import Animated from "react-native-reanimated";
 import { usePulse } from "@/hooks/animation/useAnimation";
-import { CameraCard } from "./CameraCardView";
+import { CameraCard } from "../components/Homepage_Widget/CameraCardView";
+import { useRoomStore } from "@/store/useRoomEvent";
 
 type ScanTableProps = {
   open: boolean;
@@ -14,17 +15,17 @@ type ScanTableProps = {
   tableSession: string | null;
 
   setOpen: (value: boolean) => void;
-  setShopId: (value: string | null) => void;
-  setTableId: (value: string | null) => void;
-  setTableSession: (value: string | null) => void;
+  setTableSession: (
+    shopId: string,
+    tableId: string | null,
+    tableSession: string | null,
+  ) => void;
 };
 const ScanTable = ({
   open,
   setOpen,
-  setShopId,
   shopId,
   tableId,
-  setTableId,
   setTableSession,
   tableSession,
 }: ScanTableProps) => {
@@ -33,8 +34,10 @@ const ScanTable = ({
   const scanningRef = useRef(false);
   const pulseStyle = usePulse();
 
+  const setRoom = useRoomStore((state) => state.setRoom);
+  const setMembers = useRoomStore((state) => state.setMembers);
+
   // mock api shop name
-  const shopName = "ครัวคุณต๋อย";
   const handleScan = async (data: string) => {
     try {
       const url = new URL(data);
@@ -42,21 +45,38 @@ const ScanTable = ({
       const tableId = url.searchParams.get("tableId");
       const tableSession = url.searchParams.get("tableSession");
 
-      if (!shopId || !tableId || !tableSession) {
-        console.log("!shopId || !tableId || !tableSession ");
+      if (!shopId) {
         await showNotification(
           "QR Code ไม่ถูกต้อง ❌",
           "กรุณาสแกน QR Code ของโต๊ะอีกครั้ง",
         );
         return;
       }
-      setShopId(shopId);
-      setTableId(tableId);
-      setTableSession(tableSession);
+      setTableSession(shopId, tableId, tableSession);
       setScanned(true);
-
+      if (tableId) {
+        setRoom({
+          roomId: "test",
+          shopId,
+          tableId,
+        });
+        setMembers([
+          {
+            userId: "user-001",
+            name: "tob",
+          },
+          {
+            userId: "user-002",
+            name: "jane",
+          },
+          {
+            userId: "user-002",
+            name: "joy",
+          },
+        ]);
+      }
       await showNotification(
-        `${shopName} ยินดีต้อนรับ`,
+        `${shopId} ยินดีต้อนรับ`,
         `คุณอยู่โต๊ะ ${tableId}`,
       );
     } catch (error) {
@@ -68,7 +88,6 @@ const ScanTable = ({
     if (scanningRef.current) {
       return;
     }
-
     if (scanned) {
       return;
     }
@@ -102,9 +121,6 @@ const ScanTable = ({
           scanned={scanned}
           setOpen={setOpen}
           setScanned={setScanned}
-          setShopId={setShopId}
-          setTableId={setTableId}
-          setTableSession={setTableSession}
           shopId={shopId}
           tableId={tableId}
           tableSession={tableSession}

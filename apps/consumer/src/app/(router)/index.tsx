@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import ScanTable from "@/components/Homepage_Widget/ScanTable";
-import { Board } from "@/components/Homepage_Widget/Bannner";
+import ScanTable from "@/app/ScanTable";
+import { Banner } from "@/components/Homepage_Widget/Bannner";
 import { Menu } from "@/components/Homepage_Widget/Menu";
 import TableQRCode from "@/lib/qrCodeGenerator";
+import { useStoreShop } from "@/store/useStoreShop";
 
 const menu = [
   { name: 1 },
@@ -16,22 +17,9 @@ const menu = [
 ];
 
 const Homepage = () => {
-  const board = [{ name: 1 }, { name: 2 }, { name: 3 }];
-  const [index, setIndex] = useState(0);
   const [open, setOpen] = useState(false);
-  const [shopId, setShopId] = useState<string | null>(null);
-  const [tableId, setTableId] = useState<string | null>(null);
-  const [tableSession, setTableSession] = useState<string | null>(null);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % board.length);
-    }, 3000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const banner = board.slice(index, index + 1);
+  const { shopId, tableId, tableSession, setTableSession } = useStoreShop();
 
   return (
     <>
@@ -50,12 +38,7 @@ const Homepage = () => {
       <View className=" px-2 gap-2 relative  flex-1 ">
         <View className="flex items-center justify-center gap-2">
           {/* Banner */}
-
-          <View className="h-10 w-full border">
-            {banner.map((i) => (
-              <Board key={i.name} item={i.name} />
-            ))}
-          </View>
+          <Banner />
 
           {/* shop */}
           <View className="  w-full ">
@@ -72,15 +55,17 @@ const Homepage = () => {
           <TableQRCode />
         </View>
 
+        {/* test click to menu */}
+        <View>
+          <Text>Shop : {shopId}</Text>
+        </View>
         {/* ScanTable */}
         <View className=" absolute  bottom-0 right-0 flex justify-center mr-3 mb-3 gap-1 ">
           <ScanTable
+            shopId={shopId}
+            tableId={tableId}
             open={open}
             setOpen={setOpen}
-            setShopId={setShopId}
-            setTableId={setTableId}
-            shopId={shopId ?? ""}
-            tableId={tableId ?? ""}
             tableSession={tableSession}
             setTableSession={setTableSession}
           />
