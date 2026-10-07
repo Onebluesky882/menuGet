@@ -14,7 +14,7 @@ const Layout = () => {
         }}
       />
       <Tabs.Screen
-        name="ShopMenu"
+        name="menu"
         options={{
           headerShown: false,
           title: "Menu",

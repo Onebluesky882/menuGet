@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ScanTable from "@/app/ScanTable";
 import { Board } from "@/components/Homepage_Widget/Bannner";
 import { Menu } from "@/components/Homepage_Widget/Menu";
 import TableQRCode from "@/lib/qrCodeGenerator";
 import { useStoreShop } from "@/store/useStoreShop";
+import { useRouter } from "expo-router";
 
 const menu = [
   { name: 1 },
@@ -17,6 +18,7 @@ const menu = [
 ];
 
 const Homepage = () => {
+  const router = useRouter();
   const board = [{ name: 1 }, { name: 2 }, { name: 3 }];
   const [index, setIndex] = useState(0);
   const [open, setOpen] = useState(false);
@@ -72,6 +74,10 @@ const Homepage = () => {
           <TableQRCode />
         </View>
 
+        {/* test click to menu */}
+        <View>
+          <Text>Shop : {shopId}</Text>
+        </View>
         {/* ScanTable */}
         <View className=" absolute  bottom-0 right-0 flex justify-center mr-3 mb-3 gap-1 ">
           <ScanTable

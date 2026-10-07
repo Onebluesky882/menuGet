@@ -3,7 +3,7 @@
 ## 1. Scan → Table Session
 
 - [x] Scan QR Code
-- [ ] Create / Join Table Session
+- [] Create / Join Table Session
 - [ ] หลัง Scan → ไปหน้า Table Group Room
 
 > QR ทำหน้าที่สร้าง / เข้าร่วม Table Session

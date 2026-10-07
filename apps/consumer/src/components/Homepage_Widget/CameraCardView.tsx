@@ -14,6 +14,7 @@ type Props = {
 
   setOpen: (value: boolean) => void;
   setScanned: (value: boolean) => void;
+  pathName: string;
 };
 export const CameraCard = ({
   scanned,
@@ -25,6 +26,7 @@ export const CameraCard = ({
   handleBarcodeScanned,
   setOpen,
   setScanned,
+  pathName,
 }: Props) => {
   return (
     <View className="flex-1 justify-end bg-black/40">
@@ -69,6 +71,7 @@ export const CameraCard = ({
         {/* Result */}
         {shopId && (
           <TableReservedCard
+            pathName={pathName}
             setOpen={setOpen}
             shopId={shopId}
             tableId={tableId ?? ""}

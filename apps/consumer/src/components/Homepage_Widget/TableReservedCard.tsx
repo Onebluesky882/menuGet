@@ -1,22 +1,22 @@
-import { useStoreShop } from "@/store/useStoreShop";
-import { router } from "expo-router";
+import { useRouter } from "expo-router";
 import { View, Text, Pressable } from "react-native";
 
 type Props = {
   shopId: string;
   tableId: string;
   tableSession: string;
+  pathName: string;
   setOpen: (toggle: boolean) => void;
- 
 };
 
 export const TableReservedCard = ({
   shopId,
   tableId,
   tableSession,
+  pathName,
   setOpen,
-   
 }: Props) => {
+  const router = useRouter();
   return (
     <View className="mt-5 rounded-2xl bg-slate-100 p-5">
       <Text className="text-lg font-bold">Scan สำเร็จ ✓</Text>
@@ -42,9 +42,8 @@ export const TableReservedCard = ({
       <Pressable
         className="mt-5 rounded-2xl bg-black p-4"
         onPress={() => {
+          router.push("/(router)/menu");
           setOpen(false);
-        
-          router.push("/ShopMenu");
         }}
       >
         <Text className="text-center font-semibold text-white">ไปที่เมนู</Text>

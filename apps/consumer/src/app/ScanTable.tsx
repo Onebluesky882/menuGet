@@ -6,6 +6,7 @@ import { showNotification } from "@/lib/showNotification";
 import Animated from "react-native-reanimated";
 import { usePulse } from "@/hooks/animation/useAnimation";
 import { CameraCard } from "../components/Homepage_Widget/CameraCardView";
+import { usePathname } from "expo-router";
 
 type ScanTableProps = {
   open: boolean;
@@ -32,9 +33,9 @@ const ScanTable = ({
   const [scanned, setScanned] = useState(false);
   const scanningRef = useRef(false);
   const pulseStyle = usePulse();
+  const pathName = usePathname();
 
   // mock api shop name
-  const shopName = "ครัวคุณต๋อย";
   const handleScan = async (data: string) => {
     try {
       const url = new URL(data);
@@ -93,6 +94,7 @@ const ScanTable = ({
         }}
       >
         <CameraCard
+          pathName={pathName}
           handleBarcodeScanned={handleBarcodeScanned}
           permission={permission}
           requestPermission={requestPermission}
