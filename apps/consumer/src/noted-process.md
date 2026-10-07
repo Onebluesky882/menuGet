@@ -3,8 +3,8 @@
 ## 1. Scan → Table Session
 
 - [x] Scan QR Code
-- [] Create / Join Table Session
-- [ ] หลัง Scan → ไปหน้า Table Group Room
+- [x] Create / Join Table Session
+- [x] หลัง Scan → ไปหน้า Table Group Room
 
 > QR ทำหน้าที่สร้าง / เข้าร่วม Table Session
 
@@ -12,39 +12,40 @@
 
 ## 2. Table Group Room
 
-- [ ] Table Group Room
+- [x] Table Group Room
 
 ### Table Room Header
 
-- [ ] ชื่อร้าน
-- [ ] หมายเลขโต๊ะ
-- [ ] Session status
-- [ ] รายชื่อคนในโต๊ะ
+- [x] ชื่อร้าน
+- [x] หมายเลขโต๊ะ
+- [x] Session status
+- [x] รายชื่อคนในโต๊ะ
 - [ ] Avatar / User status
 - [ ] Online / Offline status
 - [ ] ใครกำลังเลือกอาหาร
 - [ ] ใครเลือกอาหารอะไรแล้ว
 - [ ] จำนวนรายการอาหารของแต่ละคน
-- [ ] จำนวนเงินของแต่ละคน
-- [ ] ปุ่ม ดูเมนู
+- [x] ปุ่ม ดูเมนู
 - [ ] ปุ่ม แชร์ห้อง
 - [ ] ปุ่ม ออกจากโต๊ะ
+- [ ] old room new session
+- [ ] search name Room
 
 ---
 
 ## 3. Restaurant Menu
 
-- [ ] Restaurant Menu
-  - [ ] แสดงชื่อร้าน
+- [X] Restaurant Menu
+  - [X] แสดงชื่อร้าน
   - [ ] Restaurant image
   - [ ] Category menu
-  - [ ] Menu item
-  - [ ] รูปอาหาร
-  - [ ] ราคา
-  - [ ] รายละเอียดอาหาร
+  - [X] Menu item
+  - [X] รูปอาหาร
+  - [X] ราคา
+  - [X] รายละเอียดอาหาร
   - [ ] ตัวเลือกอาหาร
-  - [ ] เพิ่มจำนวน
-  - [ ] ลดจำนวน
+  - [X] เพิ่มจำนวน
+  - [X] ลดจำนวน
   - [ ] เพิ่มลงตะกร้า
   - [ ] Cart badge
   - [ ] Search menu
@@ -125,7 +126,6 @@
 - [ ] Keep Order as one Order for payment / history / tracking
 
 ---
-
 
 ## 10. Share Deep Link
 

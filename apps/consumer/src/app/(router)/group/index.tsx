@@ -1,5 +1,5 @@
 import ScanTable from "@/app/ScanTable";
-import { useRoomStore } from "@/store/useRoomOrder";
+import { useRoomStore } from "@/store/useRoomEvent";
 import { useStoreShop } from "@/store/useStoreShop";
 import { useRouter } from "expo-router";
 import { useState } from "react";
@@ -71,7 +71,7 @@ const index = () => {
             <View className="overflow-hidden rounded-2xl bg-white">
               {members.map((member, index) => (
                 <View
-                  key={member.userId}
+                  key={index}
                   className={`flex-row items-center px-4 py-4 ${
                     index !== members.length - 1
                       ? "border-b border-gray-100"

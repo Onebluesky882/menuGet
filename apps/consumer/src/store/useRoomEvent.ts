@@ -32,7 +32,6 @@ export const useRoomStore = create<RoomStore>((set) => ({
     }),
 
   clearRoom: () => {
-    console.log("🔥 CLEAR ROOM");
     set({
       room: null,
       members: [],

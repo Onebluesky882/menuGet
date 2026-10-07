@@ -6,7 +6,7 @@ import { showNotification } from "@/lib/showNotification";
 import Animated from "react-native-reanimated";
 import { usePulse } from "@/hooks/animation/useAnimation";
 import { CameraCard } from "../components/Homepage_Widget/CameraCardView";
-import { useRoomStore } from "@/store/useRoomOrder";
+import { useRoomStore } from "@/store/useRoomEvent";
 
 type ScanTableProps = {
   open: boolean;
@@ -64,6 +64,14 @@ const ScanTable = ({
           {
             userId: "user-001",
             name: "tob",
+          },
+          {
+            userId: "user-002",
+            name: "jane",
+          },
+          {
+            userId: "user-002",
+            name: "joy",
           },
         ]);
       }
