@@ -1,3 +1,5 @@
+import { useStoreShop } from "@/store/useStoreShop";
+import { router } from "expo-router";
 import { View, Text, Pressable } from "react-native";
 
 type Props = {
@@ -5,6 +7,7 @@ type Props = {
   tableId: string;
   tableSession: string;
   setOpen: (toggle: boolean) => void;
+ 
 };
 
 export const TableReservedCard = ({
@@ -12,6 +15,7 @@ export const TableReservedCard = ({
   tableId,
   tableSession,
   setOpen,
+   
 }: Props) => {
   return (
     <View className="mt-5 rounded-2xl bg-slate-100 p-5">
@@ -39,6 +43,8 @@ export const TableReservedCard = ({
         className="mt-5 rounded-2xl bg-black p-4"
         onPress={() => {
           setOpen(false);
+        
+          router.push("/ShopMenu");
         }}
       >
         <Text className="text-center font-semibold text-white">ไปที่เมนู</Text>

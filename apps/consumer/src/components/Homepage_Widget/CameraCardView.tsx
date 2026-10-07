@@ -13,24 +13,18 @@ type Props = {
   tableSession: string | null;
 
   setOpen: (value: boolean) => void;
-  setShopId: (value: string | null) => void;
-  setTableId: (value: string | null) => void;
-  setTableSession: (value: string | null) => void;
   setScanned: (value: boolean) => void;
 };
 export const CameraCard = ({
   scanned,
-  permission,
-  requestPermission,
-  handleBarcodeScanned,
   shopId,
   tableId,
   tableSession,
+  permission,
+  requestPermission,
+  handleBarcodeScanned,
   setOpen,
   setScanned,
-  setShopId,
-  setTableId,
-  setTableSession,
 }: Props) => {
   return (
     <View className="flex-1 justify-end bg-black/40">
@@ -73,12 +67,12 @@ export const CameraCard = ({
         )}
 
         {/* Result */}
-        {shopId && tableId && tableSession && (
+        {shopId && (
           <TableReservedCard
             setOpen={setOpen}
             shopId={shopId}
-            tableId={tableId}
-            tableSession={tableSession}
+            tableId={tableId ?? ""}
+            tableSession={tableSession ?? ""}
           />
         )}
 
@@ -87,9 +81,6 @@ export const CameraCard = ({
           className="mt-5 rounded-2xl border border-slate-300 p-4"
           onPress={() => {
             setOpen(false);
-            setShopId(null);
-            setTableId(null);
-            setTableSession(null);
             setScanned(false);
           }}
         >

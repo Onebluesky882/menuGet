@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import { showNotification } from "@/lib/showNotification";
 import Animated from "react-native-reanimated";
 import { usePulse } from "@/hooks/animation/useAnimation";
-import { CameraCard } from "./CameraCardView";
+import { CameraCard } from "../components/Homepage_Widget/CameraCardView";
 
 type ScanTableProps = {
   open: boolean;
@@ -14,17 +14,17 @@ type ScanTableProps = {
   tableSession: string | null;
 
   setOpen: (value: boolean) => void;
-  setShopId: (value: string | null) => void;
-  setTableId: (value: string | null) => void;
-  setTableSession: (value: string | null) => void;
+  setTableSession: (
+    shopId: string,
+    tableId: string | null,
+    tableSession: string | null,
+  ) => void;
 };
 const ScanTable = ({
   open,
   setOpen,
-  setShopId,
   shopId,
   tableId,
-  setTableId,
   setTableSession,
   tableSession,
 }: ScanTableProps) => {
@@ -42,21 +42,18 @@ const ScanTable = ({
       const tableId = url.searchParams.get("tableId");
       const tableSession = url.searchParams.get("tableSession");
 
-      if (!shopId || !tableId || !tableSession) {
-        console.log("!shopId || !tableId || !tableSession ");
+      if (!shopId) {
         await showNotification(
           "QR Code ไม่ถูกต้อง ❌",
           "กรุณาสแกน QR Code ของโต๊ะอีกครั้ง",
         );
         return;
       }
-      setShopId(shopId);
-      setTableId(tableId);
-      setTableSession(tableSession);
+      setTableSession(shopId, tableId, tableSession);
       setScanned(true);
 
       await showNotification(
-        `${shopName} ยินดีต้อนรับ`,
+        `${shopId} ยินดีต้อนรับ`,
         `คุณอยู่โต๊ะ ${tableId}`,
       );
     } catch (error) {
@@ -102,9 +99,6 @@ const ScanTable = ({
           scanned={scanned}
           setOpen={setOpen}
           setScanned={setScanned}
-          setShopId={setShopId}
-          setTableId={setTableId}
-          setTableSession={setTableSession}
           shopId={shopId}
           tableId={tableId}
           tableSession={tableSession}

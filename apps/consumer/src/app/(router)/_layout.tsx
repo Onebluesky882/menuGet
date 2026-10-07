@@ -6,10 +6,35 @@ const Layout = () => {
       <Tabs.Screen
         name="index"
         options={{
-          title: "menu",
+          title: "Home",
           headerShown: false,
           tabBarIcon: ({ color }) => (
             <SymbolView name="house" tintColor={color} size={24} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="ShopMenu"
+        options={{
+          headerShown: false,
+          title: "Menu",
+          tabBarIcon: ({ color }) => (
+            <SymbolView name="menucard" tintColor={color} size={24} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="group"
+        options={{
+          headerShown: false,
+          title: "group",
+          tabBarIcon: ({ color }) => (
+            <SymbolView
+              name="circle.grid.cross.up.fill"
+              tintColor={color}
+              size={24}
+            />
           ),
         }}
       />

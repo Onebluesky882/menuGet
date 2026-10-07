@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import ScanTable from "@/components/Homepage_Widget/ScanTable";
+import ScanTable from "@/app/ScanTable";
 import { Board } from "@/components/Homepage_Widget/Bannner";
 import { Menu } from "@/components/Homepage_Widget/Menu";
 import TableQRCode from "@/lib/qrCodeGenerator";
+import { useStoreShop } from "@/store/useStoreShop";
 
 const menu = [
   { name: 1 },
@@ -19,9 +20,8 @@ const Homepage = () => {
   const board = [{ name: 1 }, { name: 2 }, { name: 3 }];
   const [index, setIndex] = useState(0);
   const [open, setOpen] = useState(false);
-  const [shopId, setShopId] = useState<string | null>(null);
-  const [tableId, setTableId] = useState<string | null>(null);
-  const [tableSession, setTableSession] = useState<string | null>(null);
+
+  const { shopId, tableId, tableSession, setTableSession } = useStoreShop();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -75,12 +75,10 @@ const Homepage = () => {
         {/* ScanTable */}
         <View className=" absolute  bottom-0 right-0 flex justify-center mr-3 mb-3 gap-1 ">
           <ScanTable
+            shopId={shopId}
+            tableId={tableId}
             open={open}
             setOpen={setOpen}
-            setShopId={setShopId}
-            setTableId={setTableId}
-            shopId={shopId ?? ""}
-            tableId={tableId ?? ""}
             tableSession={tableSession}
             setTableSession={setTableSession}
           />
