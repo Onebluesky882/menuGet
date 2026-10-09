@@ -1,22 +1,26 @@
 import { useState } from "react";
 import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import ScanTable from "@/app/ScanTable";
 import { Banner } from "@/components/Homepage_Widget/Bannner";
 import { Menu } from "@/components/Homepage_Widget/Menu";
 import TableQRCode from "@/lib/qrCodeGenerator";
 import { useStoreShop } from "@/store/useStoreShop";
+import { FlashList } from "@shopify/flash-list";
+import ScanTable from "../ScanTable/ScanTable";
 
-const menu = [
-  { name: 1 },
-  { name: 2 },
-  { name: 3 },
-  { name: 4 },
-  { name: 5 },
-  { name: 6 },
-];
-
+type Menu = {
+  name: number;
+};
 const Homepage = () => {
+  const menu: Menu[] = [
+    { name: 1 },
+    { name: 2 },
+    { name: 3 },
+    { name: 4 },
+    { name: 5 },
+    { name: 6 },
+  ];
+
   const [open, setOpen] = useState(false);
 
   const { shopId, tableId, tableSession, setTableSession } = useStoreShop();
@@ -43,9 +47,10 @@ const Homepage = () => {
           {/* shop */}
           <View className="  w-full ">
             <View className="flex-row flex-wrap ">
-              {menu.map((i) => (
-                <Menu key={i.name} item={i.name} />
-              ))}
+              <FlashList
+                data={menu}
+                renderItem={({ item }) => <Menu item={item.name} />}
+              />
             </View>
           </View>
         </View>

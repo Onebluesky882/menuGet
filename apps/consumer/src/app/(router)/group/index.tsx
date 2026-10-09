@@ -1,6 +1,7 @@
-import ScanTable from "@/app/ScanTable";
+import ScanTable from "@/app/ScanTable/ScanTable";
 import { useRoomStore } from "@/store/useRoomEvent";
 import { useStoreShop } from "@/store/useStoreShop";
+import { FlashList } from "@shopify/flash-list";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { View, Text, Pressable } from "react-native";
@@ -69,30 +70,33 @@ const index = () => {
             </Text>
 
             <View className="overflow-hidden rounded-2xl bg-white">
-              {members.map((member, index) => (
-                <View
-                  key={index}
-                  className={`flex-row items-center px-4 py-4 ${
-                    index !== members.length - 1
-                      ? "border-b border-gray-100"
-                      : ""
-                  }`}
-                >
-                  {/* Avatar */}
-                  <View className="mr-3 h-11 w-11 items-center justify-center rounded-full bg-gray-100">
-                    <Text className="text-base font-bold text-gray-600">
-                      {member.name.charAt(0).toUpperCase()}
-                    </Text>
-                  </View>
+              <FlashList
+                data={members}
+                keyExtractor={(member) => String(member.userId)}
+                renderItem={({ item: member, index }) => (
+                  <View
+                    className={`flex-row items-center px-4 py-4 ${
+                      index !== members.length - 1
+                        ? "border-b border-gray-100"
+                        : ""
+                    }`}
+                  >
+                    {/* Avatar */}
+                    <View className="mr-3 h-11 w-11 items-center justify-center rounded-full bg-gray-100">
+                      <Text className="text-base font-bold text-gray-600">
+                        {member.name.charAt(0).toUpperCase()}
+                      </Text>
+                    </View>
 
-                  {/* User */}
-                  <View className="flex-1">
-                    <Text className="font-semibold text-gray-900">
-                      {member.name}
-                    </Text>
+                    {/* User */}
+                    <View className="flex-1">
+                      <Text className="font-semibold text-gray-900">
+                        {member.name}
+                      </Text>
+                    </View>
                   </View>
-                </View>
-              ))}
+                )}
+              />
             </View>
           </View>
 
