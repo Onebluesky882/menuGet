@@ -42,6 +42,7 @@ const Layout = () => {
       <Tabs.Screen
         name="order"
         options={{
+          headerShown: false,
           title: "order",
           tabBarIcon: ({ color }) => (
             <SymbolView name="list.bullet" tintColor={color} size={24} />
@@ -56,6 +57,14 @@ const Layout = () => {
           tabBarIcon: ({ color }) => (
             <SymbolView name="person" tintColor={color} size={24} />
           ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="pre-order"
+        options={{
+          headerShown: false,
+          href: null,
         }}
       />
     </Tabs>

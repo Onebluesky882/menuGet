@@ -11,7 +11,7 @@ export const Banner = () => {
     }, 3000);
 
     return () => clearInterval(timer);
-  }, []);
+  });
 
   const item = board[index];
 

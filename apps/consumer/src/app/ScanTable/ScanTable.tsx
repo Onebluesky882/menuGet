@@ -1,11 +1,11 @@
 import { SymbolView } from "expo-symbols";
-import { View, Text, Pressable, Modal, Button } from "react-native";
+import { View, Text, Pressable, Modal } from "react-native";
 import { useCameraPermissions, BarcodeScanningResult } from "expo-camera";
 import { useRef, useState } from "react";
 import { showNotification } from "@/lib/showNotification";
 import Animated from "react-native-reanimated";
 import { usePulse } from "@/hooks/animation/useAnimation";
-import { CameraCard } from "../components/Homepage_Widget/CameraCardView";
+import { CameraCard } from "@/components/Homepage_Widget/CameraCardView";
 import { useRoomStore } from "@/store/useRoomEvent";
 
 type ScanTableProps = {

@@ -10,7 +10,11 @@
       "output": "static",
       "bundler": "metro"
     },
-    "plugins": ["expo-router", "expo-status-bar"],
+    "plugins": [
+      "expo-router",
+      "expo-status-bar",
+      "expo-audio"
+    ],
     "name": "consumer",
     "slug": "consumer"
   }
