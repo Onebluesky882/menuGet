@@ -1,15 +1,28 @@
 import { CartItem } from "@/type/Cart";
 import { SymbolView } from "expo-symbols";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { Modal, Pressable, View, Text } from "react-native";
-
+import { CartItemRow } from "./CartItemRow";
+import { ScrollView } from "react-native-gesture-handler";
+import { hapticLight } from "@/lib/haptic";
 type CartModalProps = {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   items: CartItem[];
+  removeMenu: (id: string) => void;
 };
 
-export const CartModal = ({ open, setOpen, items }: CartModalProps) => {
+export const CartModal = ({
+  open,
+  setOpen,
+  items,
+  removeMenu,
+}: CartModalProps) => {
+  useEffect(() => {
+    if (open && items.length === 0) {
+      setOpen(false);
+    }
+  }, [open, items.length, setOpen]);
   return (
     <Modal
       visible={open}
@@ -28,14 +41,17 @@ export const CartModal = ({ open, setOpen, items }: CartModalProps) => {
           onPress={(event) => event.stopPropagation()}
         >
           {/* Header */}
-          <View className="mb-4 flex-row items-center justify-between">
+          <View className="mb-2 flex-row items-center justify-between">
             <Text className="text-xl font-bold text-slate-900">
               ตะกร้าสินค้า
             </Text>
 
             {/* ปุ่มปิด */}
             <Pressable
-              onPress={() => setOpen(false)}
+              onPress={() => {
+                hapticLight();
+                setOpen(false);
+              }}
               accessibilityRole="button"
               accessibilityLabel="ปิดตะกร้า"
               className="p-1"
@@ -45,31 +61,26 @@ export const CartModal = ({ open, setOpen, items }: CartModalProps) => {
           </View>
 
           {/* จำนวนสินค้า */}
-          <Text className="mt-2 text-slate-500">
+          <Text className="mb-2 text-slate-500">
             จำนวน {items.reduce((total, item) => total + item.quantity, 0)} ชิ้น
           </Text>
 
           {/* รายการสินค้า */}
-          {items.map((item) => (
-            <View
-              key={item.id}
-              className="mt-4 flex-row items-center justify-between"
-            >
-              <View className="flex-1">
-                <Text className="font-medium text-slate-900">
-                  {item.menuItem.name}
-                </Text>
-
-                <Text className="mt-1 text-sm text-slate-500">
-                  ฿{item.menuItem.price} × {item.quantity}
-                </Text>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{ maxHeight: 320 }}
+            contentContainerStyle={{ paddingTop: 10 }}
+          >
+            {items.map((item) => (
+              <View className="border-gray-200 border-b">
+                <CartItemRow
+                  item={item}
+                  removeMenu={removeMenu}
+               
+                />
               </View>
-
-              <Text className="font-bold text-slate-900">
-                ฿{item.menuItem.price * item.quantity}
-              </Text>
-            </View>
-          ))}
+            ))}
+          </ScrollView>
 
           {/* ราคารวม */}
           <View className="mt-5 flex-row items-center justify-between border-t border-slate-200 pt-4">

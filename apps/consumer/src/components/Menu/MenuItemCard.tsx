@@ -1,5 +1,6 @@
 import { CartItem, MenuItem } from "@/type/Cart";
 import { Pressable, View, Text } from "react-native";
+import * as Haptics from "expo-haptics";
 
 type MenuItemCardProps = {
   menu: MenuItem;
@@ -7,6 +8,15 @@ type MenuItemCardProps = {
 };
 
 export const MenuItemCard = ({ menu, addCartItem }: MenuItemCardProps) => {
+  const handleAddToCart = () => {
+    void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    addCartItem({
+      id: menu.id,
+      menuItem: menu,
+      quantity: 1,
+    });
+  };
+
   return (
     <View
       key={menu.id}
@@ -41,13 +51,10 @@ export const MenuItemCard = ({ menu, addCartItem }: MenuItemCardProps) => {
           </Text>
 
           <Pressable
-            onPress={() =>
-              addCartItem({
-                id: menu.id,
-                menuItem: menu,
-                quantity: 1,
-              })
-            }
+            style={({ pressed }) => ({
+              backgroundColor: pressed ? "#f97316" : "#0f172a",
+            })}
+            onPress={handleAddToCart}
             className="h-9 w-9 items-center justify-center rounded-full bg-slate-900"
           >
             <Text className="text-xl font-medium text-white">+</Text>

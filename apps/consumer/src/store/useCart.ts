@@ -6,6 +6,7 @@ type Cart = {
   orderType: "dining" | "takeOut";
   addCartItem: (item: CartItem) => void;
   removeCartItem: (id: string) => void;
+  removeMenu: (id: string) => void;
   clearCart: () => void;
   setOrderType: (type: "dining" | "takeOut") => void;
 };
@@ -41,7 +42,10 @@ export const useCart = create<Cart>((set) => ({
         )
         .filter((item) => item.quantity > 0),
     })),
-
+  removeMenu: (id) =>
+    set((state) => ({
+      items: state.items.filter((item) => item.menuItem.id !== id),
+    })),
   clearCart: () =>
     set({
       items: [],
