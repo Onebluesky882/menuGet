@@ -15,9 +15,14 @@ export type CartItem = {
   quantity: number;
 };
 
-type MenuItem = {
+export type MenuItem = {
   id: string;
   name: string;
   price: number;
   status: "available" | "outOfStock";
+  category: string;
+  image: string;
+  description: string;
 };
+
+type MenuOption = {};
