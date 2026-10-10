@@ -146,6 +146,8 @@ const ShopMenu = () => {
 
       {/* Cart Modal */}
       <CartModal
+        orderType={orderType}
+        setOrderType={setOrderType}
         removeMenu={removeMenu}
         setOpen={setOpen}
         open={open}

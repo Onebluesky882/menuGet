@@ -4,12 +4,15 @@ import { Dispatch, SetStateAction, useEffect } from "react";
 import { Modal, Pressable, View, Text } from "react-native";
 import { CartItemRow } from "./CartItemRow";
 import { ScrollView } from "react-native-gesture-handler";
-import { hapticLight } from "@/lib/haptic";
+import { hapticLight, hapticMedium } from "@/lib/haptic";
+import { useRouter } from "expo-router";
 type CartModalProps = {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   items: CartItem[];
   removeMenu: (id: string) => void;
+  orderType: string;
+  setOrderType: (type: "dining" | "takeOut") => void;
 };
 
 export const CartModal = ({
@@ -17,12 +20,19 @@ export const CartModal = ({
   setOpen,
   items,
   removeMenu,
+  setOrderType,
+  orderType,
 }: CartModalProps) => {
   useEffect(() => {
     if (open && items.length === 0) {
       setOpen(false);
     }
   }, [open, items.length, setOpen]);
+
+  const router = useRouter();
+
+  // ฟังก์ชันยืนยันสั่งกลับบ้าน
+
   return (
     <Modal
       visible={open}
@@ -65,19 +75,14 @@ export const CartModal = ({
             จำนวน {items.reduce((total, item) => total + item.quantity, 0)} ชิ้น
           </Text>
 
-          {/* รายการสินค้า */}
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={{ maxHeight: 320 }}
             contentContainerStyle={{ paddingTop: 10 }}
           >
             {items.map((item) => (
-              <View className="border-gray-200 border-b">
-                <CartItemRow
-                  item={item}
-                  removeMenu={removeMenu}
-               
-                />
+              <View key={item.id} className="border-gray-200 border-b">
+                <CartItemRow item={item} removeMenu={removeMenu} />
               </View>
             ))}
           </ScrollView>
@@ -97,7 +102,11 @@ export const CartModal = ({
 
           {/* ปุ่มสั่งอาหาร */}
           <Pressable
-            onPress={() => setOpen(false)}
+            onPress={() => {
+              hapticMedium();
+              router.push("/pre-order");
+              setOpen(false);
+            }}
             className="mt-5 items-center rounded-xl bg-slate-900 p-4"
           >
             <Text className="font-bold text-white">สั่งอาหาร</Text>

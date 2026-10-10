@@ -33,7 +33,7 @@ export const ModelCart = ({
       <Pressable
         className="mt-5 rounded-2xl bg-black p-4"
         onPress={() => {
-          router.push("/(router)/order");
+          router.push("/pre-order");
           setOpen(false);
         }}
       >
