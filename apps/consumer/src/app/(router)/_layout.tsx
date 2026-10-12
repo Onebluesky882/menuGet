@@ -6,6 +6,14 @@ const Layout = () => {
       <Tabs.Screen
         name="index"
         options={{
+          href: null,
+          headerShown: false,
+          tabBarStyle: { display: "none" },
+        }}
+      />
+      <Tabs.Screen
+        name="homepage"
+        options={{
           title: "Home",
           headerShown: false,
           tabBarIcon: ({ color }) => (

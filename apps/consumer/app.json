@@ -13,7 +13,13 @@
     "plugins": [
       "expo-router",
       "expo-status-bar",
-      "expo-audio"
+      "expo-audio",
+      [
+        "expo-image",
+        {
+          "disableLibdav1d": false
+        }
+      ]
     ],
     "name": "consumer",
     "slug": "consumer"
