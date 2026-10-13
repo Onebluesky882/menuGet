@@ -32,30 +32,30 @@ export const CameraCard = ({
   clearShop,
 }: Props) => {
   return (
-    <View className="flex-1 justify-end bg-black/40">
-      <View className="rounded-t-3xl bg-white px-5 pb-10 pt-5">
+    <View className="     relative">
+      {/* Close button: top right */}
+      <Pressable
+        style={({ pressed }) =>
+          pressed ? { backgroundColor: "white" } : undefined
+        }
+        onPress={() => {
+          setOpen(false);
+          hapticLight();
+          setScanned(false);
+        }}
+        className="absolute -right-3 -top-3 z-50 h-7 w-7 items-center justify-center rounded-full bg-black/80 border border-white/30"
+        hitSlop={10}
+      >
+        <SymbolView name="xmark" tintColor="#FFFFFF" size={20} />
+      </Pressable>
+      <View className="rounded-t-3xl bg-white px-5 pb-2 ">
         {/* Handle */}
-        <View className="mb-6 items-center">
-          <View className="h-1.5 w-12 rounded-full bg-slate-300" />
+        <View className="mb-4 items-center">
+          <View className="h-1 w-14 rounded-full bg-slate-400" />
         </View>
-
-        <Text className="text-2xl font-bold">Scan Table</Text>
-
-        {/* Close button: top right */}
-        <Pressable
-          style={({ pressed }) =>
-            pressed ? { backgroundColor: "white" } : undefined
-          }
-          onPress={() => {
-            setOpen(false);
-            hapticLight();
-            setScanned(false);
-          }}
-          className="absolute right-3 top-3 z-50 h-7 w-7 items-center justify-center rounded-full bg-black/80 border border-white/30"
-          hitSlop={10}
-        >
-          <SymbolView name="xmark" tintColor="#FFFFFF" size={20} />
-        </Pressable>
+        <View>
+          <Text className="text-2xl font-bold">Scan Table</Text>
+        </View>
         <Text className="mt-2 text-slate-500">สแกน QR Code ที่โต๊ะของคุณ</Text>
 
         {/* Camera */}

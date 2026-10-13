@@ -39,17 +39,17 @@ const Home = () => {
               style={{ width: 100, height: 50 }}
             />
           </View>
-          <View className="">
-            <View className=" ">
-              <Pressable
-                className="flex-1 border border-gray-100 bg-background/90 shadow-2xl rounded-xl p-2"
-                onPress={(event) => {
-                  event.stopPropagation();
-                  setOpenScanTable((prev) => !prev);
-                }}
-              >
-                <SymbolView name={"qrcode"} tintColor="#000000" />
-              </Pressable>
+          <View className="flex-1 items-end ">
+            <Pressable
+              className=" border border-gray-100 bg-background/90 shadow-2xl rounded-xl p-2"
+              onPress={(event) => {
+                event.stopPropagation();
+                setOpenScanTable((prev) => !prev);
+              }}
+            >
+              <SymbolView name={"qrcode"} tintColor="#000000" />
+            </Pressable>
+            {openScanTable && (
               <ScanTable
                 shopId={shopId}
                 tableId={tableId}
@@ -58,7 +58,7 @@ const Home = () => {
                 tableSession={tableSession}
                 setTableSession={setTableSession}
               />
-            </View>
+            )}
           </View>
         </View>
         {/* Banner */}
@@ -166,15 +166,6 @@ const Home = () => {
               <Text className="text-base text-gray-500">ไม่พบเมนูที่ค้นหา</Text>
             </View>
           )}
-        </View>
-        {/* Footer */}
-        <View className="mx-5 mt-2 rounded-2xl bg-gray-100 p-4">
-          <View className="flex-row items-center">
-            <ClockSvg size={18} />
-            <Text className="ml-2 text-sm text-gray-600">
-              เลือกเมนูได้ตามใจ พร้อมสั่งได้ทุกเมื่อ
-            </Text>
-          </View>
         </View>
       </ScrollView>
     </SafeAreaView>

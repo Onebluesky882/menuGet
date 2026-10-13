@@ -96,19 +96,23 @@ const ScanTable = ({
   };
 
   return (
-    <View className=" flex-1">
-      {/* Drawer / Modal */}
-
-      <Modal
-        visible={open}
-        animationType="slide"
-        transparent
-        onRequestClose={() => {
-          setOpen(false);
-          setScanned(false);
-        }}
+    <Modal
+      visible={open}
+      animationType="slide"
+      transparent
+      onRequestClose={() => {
+        setOpen(false);
+        setScanned(false);
+      }}
+    >
+      <Pressable
+        className="flex-1 justify-end bg-black/50"
+        onPress={() => setOpen(false)}
       >
-        
+        <Pressable
+          className="rounded-t-3xl bg-white p-6 "
+          onPress={(event) => event.stopPropagation()}
+        >
           <CameraCard
             handleBarcodeScanned={handleBarcodeScanned}
             permission={permission}
@@ -121,10 +125,9 @@ const ScanTable = ({
             tableSession={tableSession}
             clearShop={clearShop}
           />
-         
-        
-      </Modal>
-    </View>
+        </Pressable>
+      </Pressable>
+    </Modal>
   );
 };
 
