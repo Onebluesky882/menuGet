@@ -11,6 +11,7 @@ type Shop = {
   ) => void;
 
   removeTableSession: () => void;
+  clearShop: () => void;
 };
 export const useStoreShop = create<Shop>((set) => ({
   shopId: null,
@@ -30,6 +31,12 @@ export const useStoreShop = create<Shop>((set) => ({
       shopId: null,
       tableId: null,
       tableSession: null,
+    });
+  },
+
+  clearShop() {
+    set({
+      shopId: null,
     });
   },
 }));

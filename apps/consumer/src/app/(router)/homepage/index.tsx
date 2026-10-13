@@ -2,98 +2,27 @@ import { useMemo, useState } from "react";
 import { View, Text, Pressable, ScrollView, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
-import {
-  SearchSvg,
-  CartSvg,
-  UserSvg,
-  PlusSvg,
-  ArrowRightSvg,
-  FoodSvg,
-  NoodleSvg,
-  DrinkSvg,
-  DessertSvg,
-  SnackSvg,
-  StarSvg,
-  ClockSvg,
-} from "@/components/AppSvg";
-import { useCart } from "@/store/useCart";
+import { PlusSvg, ClockSvg } from "@/components/AppSvg";
 import ImageCard from "@/components/ImageCard";
 import { Banner } from "@/components/Homepage_Widget/Bannner";
 import { SymbolView } from "expo-symbols";
-const categories = [
-  { id: "1", name: "อาหารจานเดียว", Svg: FoodSvg },
-  { id: "2", name: "ก๋วยเตี๋ยว", Svg: NoodleSvg },
-  { id: "3", name: "เครื่องดื่ม", Svg: DrinkSvg },
-  { id: "4", name: "ของหวาน", Svg: DessertSvg },
-  { id: "5", name: "ของทานเล่น", Svg: SnackSvg },
-  { id: "6", name: "เมนูแนะนำ", Svg: StarSvg },
-];
-const popularMenus = [
-  {
-    id: "1",
-    name: "ข้าวกะเพราหมู",
-    description: "กะเพราหอม ๆ รสจัดจ้าน",
-    price: 60,
-    category: "อาหารจานเดียว",
-    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600",
-  },
-  {
-    id: "2",
-    name: "ก๋วยเตี๋ยวหมู",
-    description: "น้ำซุปเข้มข้น เส้นเหนียวนุ่ม",
-    price: 55,
-    category: "ก๋วยเตี๋ยว",
-    image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=600",
-  },
-  {
-    id: "3",
-    name: "ชาเย็น",
-    description: "ชาไทยหอมมัน หวานกำลังดี",
-    price: 35,
-    category: "เครื่องดื่ม",
-    image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=600",
-  },
-  {
-    id: "4",
-    name: "เฟรนช์ฟรายส์",
-    description: "กรอบนอกนุ่มใน",
-    price: 49,
-    category: "ของทานเล่น",
-    image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600",
-  },
-];
+import ScanTable from "@/app/ScanTable/ScanTable";
+import { categories, popularMenus } from "@/Mock/MockHomepage";
+import { useStoreShop } from "@/store/useStoreShop";
+
 const Home = () => {
-  const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("ทั้งหมด");
-  const { items, addCartItem } = useCart();
-  const cartQuantity = items.reduce((total, item) => total + item.quantity, 0);
   const filteredMenus = useMemo(() => {
     return popularMenus.filter((menu) => {
-      const matchSearch = menu.name
-        .toLowerCase()
-        .includes(search.toLowerCase());
+      const matchSearch = menu.name.toLowerCase();
+
       const matchCategory =
         selectedCategory === "ทั้งหมด" || menu.category === selectedCategory;
       return matchSearch && matchCategory;
     });
-  }, [search, selectedCategory]);
-
-  const handleAddToCart = (menu: (typeof popularMenus)[number]) => {
-    // ปรับโครงสร้างข้อมูลให้ตรงกับ CartItem ของโปรเจกต์
-    addCartItem({
-      id: menu.id,
-      menuItem: {
-        id: menu.id,
-        name: menu.name,
-        price: menu.price,
-        category: menu.category,
-        description: menu.description,
-        image: menu.image,
-        status: "available",
-      },
-      quantity: 1,
-    });
-  };
+  }, [selectedCategory]);
+  const [openScanTable, setOpenScanTable] = useState(false);
+  const { shopId, tableId, tableSession, setTableSession } = useStoreShop();
   return (
     <SafeAreaView>
       <ScrollView
@@ -101,7 +30,7 @@ const Home = () => {
         contentContainerStyle={{ paddingBottom: 32 }}
       >
         {/* Header */}
-        <View className="flex-row items-center justify-between px-5  ">
+        <View className="flex-row items-center justify-between px-5    ">
           <View>
             <ImageCard
               contentFit="cover"
@@ -110,13 +39,26 @@ const Home = () => {
               style={{ width: 100, height: 50 }}
             />
           </View>
-          <View className="flex-row items-center gap-3">
-            <Pressable
-              onPress={() => router.push("/order")}
-              className="relative h-12 w-12 items-center justify-center rounded-2xl  border border-gray-100 shadow bg-white/90"
-            >
-              <SymbolView name={"qrcode"} tintColor="#000000" />
-            </Pressable>
+          <View className="">
+            <View className=" ">
+              <Pressable
+                className="flex-1 border border-gray-100 bg-background/90 shadow-2xl rounded-xl p-2"
+                onPress={(event) => {
+                  event.stopPropagation();
+                  setOpenScanTable((prev) => !prev);
+                }}
+              >
+                <SymbolView name={"qrcode"} tintColor="#000000" />
+              </Pressable>
+              <ScanTable
+                shopId={shopId}
+                tableId={tableId}
+                open={openScanTable}
+                setOpen={setOpenScanTable}
+                tableSession={tableSession}
+                setTableSession={setTableSession}
+              />
+            </View>
           </View>
         </View>
         {/* Banner */}
@@ -211,10 +153,7 @@ const Home = () => {
                     <Text className="text-lg font-extrabold text-orange-600">
                       ฿{menu.price}
                     </Text>
-                    <Pressable
-                      onPress={() => handleAddToCart(menu)}
-                      className="h-9 w-9 items-center justify-center rounded-xl bg-orange-500"
-                    >
+                    <Pressable className="h-9 w-9 items-center justify-center rounded-xl bg-orange-500">
                       <PlusSvg size={19} />
                     </Pressable>
                   </View>

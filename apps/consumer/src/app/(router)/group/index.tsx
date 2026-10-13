@@ -1,8 +1,10 @@
 import ScanTable from "@/app/ScanTable/ScanTable";
+import TableQRCode from "@/lib/qrCodeGenerator";
 import { useRoomStore } from "@/store/useRoomEvent";
 import { useStoreShop } from "@/store/useStoreShop";
 import { FlashList } from "@shopify/flash-list";
 import { useRouter } from "expo-router";
+import { SymbolView } from "expo-symbols";
 import { useState } from "react";
 import { View, Text, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -12,6 +14,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 // แต่ allow deep link share
 
 const index = () => {
+  const [openScanTable, setOpenScanTable] = useState(false);
   const room = useRoomStore((state) => state.room);
   const { shopId, tableId, tableSession, setTableSession } = useStoreShop();
   const members = useRoomStore((state) => state.members);
@@ -19,6 +22,9 @@ const index = () => {
   const router = useRouter();
   return (
     <SafeAreaView className="  bg-gray-50">
+      <View className="border">
+        <TableQRCode />
+      </View>
       {room ? (
         <>
           {/* Header */}
