@@ -7,7 +7,7 @@ const Layout = () => {
   const cartCount = item.reduce((total, item) => (total += item.quantity), 0);
   const hasCartCount = cartCount > 0;
   return (
-    <NativeTabs backgroundColor="#FFFFFF">
+    <NativeTabs minimizeBehavior="onScrollDown">
       <NativeTabs.Trigger name="homepage">
         <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf="house.fill" md="home" />

@@ -8,8 +8,8 @@ import { useCart } from "@/store/useCart";
 import { useStoreShop } from "@/store/useStoreShop";
 import { FlashList } from "@shopify/flash-list";
 import { useIsFocused } from "expo-router";
-import { useState } from "react";
-import { View, Text, Pressable, ScrollView } from "react-native";
+import { Dispatch, SetStateAction, useState } from "react";
+import { View, Text, Pressable, ScrollView, Modal } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 const ShopMenu = () => {
   const [open, setOpen] = useState(false);
@@ -41,8 +41,7 @@ const ShopMenu = () => {
   const { shopId } = useStoreShop();
 
   const [selectedCategory, setSelectedCategory] = useState("ทั้งหมด");
-  const [search, setSearch] = useState("");
-
+  const [openPromo, setOpenPromo] = useState(false);
   const {
     addCartItem,
     removeCartItem,
@@ -57,48 +56,50 @@ const ShopMenu = () => {
     const matchCategory =
       selectedCategory === "ทั้งหมด" || menu.category === selectedCategory;
 
-    const matchSearch = menu.name.toLowerCase().includes(search.toLowerCase());
-
-    return matchCategory && matchSearch;
+    return matchCategory;
   });
 
   return (
-    <>
-      <SafeAreaView style={{ marginBottom: -70 }}>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <SafeAreaView
+        style={{
+          backgroundColor: "#FBFBFB",
+          marginTop: -48,
+          marginBottom: -85,
+        }}
+      >
         <RestaurantHeader shopId={shopId} />
       </SafeAreaView>
 
       {/* Categories */}
 
-      <View className="">
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 20 }}
-        >
-          {categories.map((category) => {
-            const active = selectedCategory === category;
+      <ScrollView
+        horizontal
+        contentContainerStyle={{ paddingHorizontal: 10 }}
+        showsHorizontalScrollIndicator={false}
+      >
+        {categories.map((category) => {
+          const active = selectedCategory === category;
 
-            return (
-              <Pressable
-                key={category}
-                onPress={() => setSelectedCategory(category)}
-                className={`mr-3 rounded-full px-5 py-3 ${
-                  active ? "bg-slate-900" : "bg-white"
+          return (
+            <Pressable
+              key={category}
+              onPress={() => setSelectedCategory(category)}
+              className={`mr-3 rounded-full px-5 py-3 ${
+                active ? "bg-slate-900" : "bg-white"
+              }`}
+            >
+              <Text
+                className={`font-medium ${
+                  active ? "text-white" : "text-slate-600"
                 }`}
               >
-                <Text
-                  className={`font-medium ${
-                    active ? "text-white" : "text-slate-600"
-                  }`}
-                >
-                  {category}
-                </Text>
-              </Pressable>
-            );
-          })}
-        </ScrollView>
-      </View>
+                {category}
+              </Text>
+            </Pressable>
+          );
+        })}
+      </ScrollView>
 
       {/* Menu Section */}
 
@@ -161,7 +162,7 @@ const ShopMenu = () => {
         open={open}
         items={items}
       />
-    </>
+    </ScrollView>
   );
 };
 

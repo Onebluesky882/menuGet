@@ -6,7 +6,7 @@ import { PlusSvg, ClockSvg } from "@/components/AppSvg";
 import ImageCard from "@/components/ImageCard";
 import { Banner } from "@/components/Homepage_Widget/Bannner";
 import { SymbolView } from "expo-symbols";
-import ScanTable from "@/app/ScanTable/ScanTable";
+import ScanTable from "@/app/scanTable";
 import { categories, popularMenus } from "@/Mock/MockHomepage";
 import { useStoreShop } from "@/store/useStoreShop";
 
@@ -24,10 +24,13 @@ const Home = () => {
   const [openScanTable, setOpenScanTable] = useState(false);
   const { shopId, tableId, tableSession, setTableSession } = useStoreShop();
   return (
-    <SafeAreaView>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 32 }}
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <SafeAreaView
+        style={{
+          backgroundColor: "#FBFBFB",
+          marginTop: -48,
+          marginBottom: -85,
+        }}
       >
         {/* Header */}
         <View className="flex-row items-center justify-between px-5    ">
@@ -167,8 +170,8 @@ const Home = () => {
             </View>
           )}
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 export default Home;
