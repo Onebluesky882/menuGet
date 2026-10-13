@@ -7,6 +7,7 @@ import Animated from "react-native-reanimated";
 import { usePulse } from "@/hooks/animation/useAnimation";
 import { CameraCard } from "@/components/Homepage_Widget/CameraCardView";
 import { useRoomStore } from "@/store/useRoomEvent";
+import { useStoreShop } from "@/store/useStoreShop";
 
 type ScanTableProps = {
   open: boolean;
@@ -32,10 +33,10 @@ const ScanTable = ({
   const [permission, requestPermission] = useCameraPermissions();
   const [scanned, setScanned] = useState(false);
   const scanningRef = useRef(false);
-  const pulseStyle = usePulse();
 
   const setRoom = useRoomStore((state) => state.setRoom);
   const setMembers = useRoomStore((state) => state.setMembers);
+  const clearShop = useStoreShop((state) => state.clearShop);
 
   // mock api shop name
   const handleScan = async (data: string) => {
@@ -95,38 +96,38 @@ const ScanTable = ({
   };
 
   return (
-    <View className="flex-1">
-      <Pressable onPress={() => setOpen(true)}>
-        <Animated.View style={pulseStyle}>
-          <Text className="text-center text-[8px] pb-1">Get Menu</Text>
-        </Animated.View>
-        <View className="border shadow border-gray-300 p-2  rounded-full">
-          <SymbolView name="qrcode" tintColor={"blue"} size={28} />
-        </View>
-      </Pressable>
-      {/* Drawer / Modal */}
-      <Modal
-        visible={open}
-        animationType="slide"
-        transparent
-        onRequestClose={() => {
-          setOpen(false);
-          setScanned(false);
-        }}
+    <Modal
+      visible={open}
+      animationType="slide"
+      transparent
+      onRequestClose={() => {
+        setOpen(false);
+        setScanned(false);
+      }}
+    >
+      <Pressable
+        className="flex-1 justify-end bg-black/50"
+        onPress={() => setOpen(false)}
       >
-        <CameraCard
-          handleBarcodeScanned={handleBarcodeScanned}
-          permission={permission}
-          requestPermission={requestPermission}
-          scanned={scanned}
-          setOpen={setOpen}
-          setScanned={setScanned}
-          shopId={shopId}
-          tableId={tableId}
-          tableSession={tableSession}
-        />
-      </Modal>
-    </View>
+        <Pressable
+          className="rounded-t-3xl bg-white p-6 "
+          onPress={(event) => event.stopPropagation()}
+        >
+          <CameraCard
+            handleBarcodeScanned={handleBarcodeScanned}
+            permission={permission}
+            requestPermission={requestPermission}
+            scanned={scanned}
+            setOpen={setOpen}
+            setScanned={setScanned}
+            shopId={shopId}
+            tableId={tableId}
+            tableSession={tableSession}
+            clearShop={clearShop}
+          />
+        </Pressable>
+      </Pressable>
+    </Modal>
   );
 };
 

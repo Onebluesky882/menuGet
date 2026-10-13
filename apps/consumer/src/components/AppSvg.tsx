@@ -5,6 +5,23 @@ type IconProps = {
   color?: string;
 };
 
+export const CartIcon = () => {
+  return (
+    <Svg width={26} height={26} viewBox="0 0 24 24" fill="none">
+      <Path
+        d="M3 3H5L7.4 14.2C7.6 15.1 8.4 15.7 9.3 15.7H18C18.9 15.7 19.7 15.1 19.9 14.2L21 7H6"
+        stroke="#FFFFFF"
+        strokeWidth={1.8}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+
+      <Circle cx={9.5} cy={20} r={1.4} fill="#FFFFFF" />
+
+      <Circle cx={18} cy={20} r={1.4} fill="#FFFFFF" />
+    </Svg>
+  );
+};
 export const SearchSvg = ({ size = 22, color = "#64748B" }: IconProps) => (
   <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
     <Circle cx="10.5" cy="10.5" r="6.5" stroke={color} strokeWidth="2" />

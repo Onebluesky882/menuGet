@@ -1,6 +1,9 @@
 import { CameraView, PermissionResponse } from "expo-camera";
 import { Pressable, View, Text, Button } from "react-native";
 import { TableReservedCard } from "./TableReservedCard";
+import { SymbolView } from "expo-symbols";
+import { Background } from "expo-router/build/react-navigation";
+import { hapticLight } from "@/lib/haptic";
 
 type Props = {
   scanned: boolean;
@@ -14,6 +17,7 @@ type Props = {
 
   setOpen: (value: boolean) => void;
   setScanned: (value: boolean) => void;
+  clearShop: () => void;
 };
 export const CameraCard = ({
   scanned,
@@ -25,17 +29,33 @@ export const CameraCard = ({
   handleBarcodeScanned,
   setOpen,
   setScanned,
+  clearShop,
 }: Props) => {
   return (
-    <View className="flex-1 justify-end bg-black/40">
-      <View className="rounded-t-3xl bg-white px-5 pb-10 pt-5">
+    <View className="     relative">
+      {/* Close button: top right */}
+      <Pressable
+        style={({ pressed }) =>
+          pressed ? { backgroundColor: "white" } : undefined
+        }
+        onPress={() => {
+          setOpen(false);
+          hapticLight();
+          setScanned(false);
+        }}
+        className="absolute -right-3 -top-3 z-50 h-7 w-7 items-center justify-center rounded-full bg-black/80 border border-white/30"
+        hitSlop={10}
+      >
+        <SymbolView name="xmark" tintColor="#FFFFFF" size={20} />
+      </Pressable>
+      <View className="rounded-t-3xl bg-white px-5 pb-2 ">
         {/* Handle */}
-        <View className="mb-6 items-center">
-          <View className="h-1.5 w-12 rounded-full bg-slate-300" />
+        <View className="mb-4 items-center">
+          <View className="h-1 w-14 rounded-full bg-slate-400" />
         </View>
-
-        <Text className="text-2xl font-bold">Scan QR Code</Text>
-
+        <View>
+          <Text className="text-2xl font-bold">Scan Table</Text>
+        </View>
         <Text className="mt-2 text-slate-500">สแกน QR Code ที่โต๊ะของคุณ</Text>
 
         {/* Camera */}
@@ -76,16 +96,32 @@ export const CameraCard = ({
           />
         )}
 
-        {/* Close */}
-        <Pressable
-          className="mt-5 rounded-2xl border border-slate-300 p-4"
-          onPress={() => {
-            setOpen(false);
-            setScanned(false);
-          }}
-        >
-          <Text className="text-center font-semibold">ปิด</Text>
-        </Pressable>
+        {/* clear */}
+        {!shopId ? (
+          <Pressable
+            className="    mt-5 rounded-2xl border border-slate-300 p-4"
+            onPress={() => {
+              setOpen(false);
+              setScanned(false);
+              hapticLight();
+            }}
+          >
+            <Text className="text-center   font-semibold">ปิด</Text>
+          </Pressable>
+        ) : (
+          <Pressable
+            className=" bg-red-500  mt-5 rounded-2xl border border-slate-300 p-4"
+            onPress={() => {
+              setOpen(false);
+              setScanned(false);
+              clearShop();
+            }}
+          >
+            <Text className="text-center text-white font-semibold">
+              เครียข้อมูล
+            </Text>
+          </Pressable>
+        )}
       </View>
     </View>
   );

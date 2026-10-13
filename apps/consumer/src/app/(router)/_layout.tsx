@@ -1,73 +1,43 @@
-import { Tabs } from "expo-router";
-import { SymbolView } from "expo-symbols";
+import { useCart } from "@/store/useCart";
+import { NativeTabs } from "expo-router/unstable-native-tabs";
+
 const Layout = () => {
+  const item = useCart((state) => state.items);
+
+  const cartCount = item.reduce((total, item) => (total += item.quantity), 0);
+  const hasCartCount = cartCount > 0;
   return (
-    <Tabs>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: "Home",
-          headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <SymbolView name="house" tintColor={color} size={24} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="menu"
-        options={{
-          headerShown: false,
-          title: "Menu",
-          tabBarIcon: ({ color }) => (
-            <SymbolView name="menucard" tintColor={color} size={24} />
-          ),
-        }}
-      />
+    <NativeTabs minimizeBehavior="onScrollDown">
+      <NativeTabs.Trigger name="homepage">
+        <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon sf="house.fill" md="home" />
+      </NativeTabs.Trigger>
 
-      <Tabs.Screen
-        name="group"
-        options={{
-          headerShown: false,
-          title: "group",
-          tabBarIcon: ({ color }) => (
-            <SymbolView
-              name="circle.grid.cross.up.fill"
-              tintColor={color}
-              size={24}
-            />
-          ),
-        }}
-      />
+      <NativeTabs.Trigger name="menu">
+        <NativeTabs.Trigger.Label>Menu</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon sf="menucard" md="restaurant_menu" />
+        {hasCartCount && (
+          <NativeTabs.Trigger.Badge>
+            {cartCount.toString()}
+          </NativeTabs.Trigger.Badge>
+        )}
+      </NativeTabs.Trigger>
 
-      <Tabs.Screen
-        name="order"
-        options={{
-          headerShown: false,
-          title: "order",
-          tabBarIcon: ({ color }) => (
-            <SymbolView name="list.bullet" tintColor={color} size={24} />
-          ),
-        }}
-      />
+      <NativeTabs.Trigger name="group">
+        <NativeTabs.Trigger.Label>Group</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon sf="person.2.fill" md="group" />
+      </NativeTabs.Trigger>
 
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: "profile",
-          tabBarIcon: ({ color }) => (
-            <SymbolView name="person" tintColor={color} size={24} />
-          ),
-        }}
-      />
+      <NativeTabs.Trigger name="order">
+        <NativeTabs.Trigger.Label>Order</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon sf="list.bullet" md="list" />
+      </NativeTabs.Trigger>
 
-      <Tabs.Screen
-        name="pre-order"
-        options={{
-          headerShown: false,
-          href: null,
-        }}
-      />
-    </Tabs>
+      <NativeTabs.Trigger name="profile">
+        <NativeTabs.Trigger.Label>Profile</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon sf="person.fill" md="person" />
+      </NativeTabs.Trigger>
+    </NativeTabs>
   );
 };
 

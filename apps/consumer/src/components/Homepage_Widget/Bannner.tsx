@@ -1,14 +1,25 @@
 import { useEffect, useState } from "react";
 import { View, Text } from "react-native";
+import ImageCard from "../ImageCard";
 
 export const Banner = () => {
-  const board = [{ name: 1 }, { name: 2 }, { name: 3 }];
+  const board = [
+    {
+      image: require("@/assets/homepage/promo01-1536-1024.png"),
+    },
+    {
+      image: require("@/assets/homepage/promo02-1536-1024.png"),
+    },
+    {
+      image: require("@/assets/homepage/promo03-1536-1024.png"),
+    },
+  ];
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % board.length);
-    }, 3000);
+    }, 3800);
 
     return () => clearInterval(timer);
   });
@@ -16,18 +27,17 @@ export const Banner = () => {
   const item = board[index];
 
   return (
-    <View className="w-full">
-      <View className="h-10 w-full border">
-        <BannerItem item={item.name} />
-      </View>
-    </View>
-  );
-};
-
-export const BannerItem = ({ item }: { item: number }) => {
-  return (
-    <View className="flex-1 items-center justify-center">
-      <Text>banner: {item}</Text>
+    <View className="   p-2 px-5 ">
+      <ImageCard
+        url={item.image}
+        contentFit={"cover"}
+        transition={0}
+        style={{
+          width: "100%",
+          height: 230,
+          borderRadius: 16,
+        }}
+      />
     </View>
   );
 };
