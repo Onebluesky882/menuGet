@@ -65,7 +65,7 @@ change api path
 			Handler: requestEmailChangeHandler.Handler(),
 		},
 	}
-}
+
 
 ```
 

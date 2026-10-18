@@ -25,5 +25,4 @@ func NewPostgress() (*bun.DB, error) {
 		return nil, fmt.Errorf("connect postgres: %w", err)
 	}
 	return db, nil
-
 }

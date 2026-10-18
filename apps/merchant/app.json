@@ -1,16 +1,46 @@
 {
   "expo": {
-    "scheme": "acme",
+    "scheme": "menuget_shop",
     "userInterfaceStyle": "automatic",
+    "icon": "./assets/images/KinaRai_logo.png",
     "orientation": "default",
     "web": {
       "output": "static"
     },
     "plugins": [
       "expo-router",
-      "expo-status-bar"
+      "expo-status-bar",
+      [
+        "expo-image",
+        {
+          "disableLibdav1d": true
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash_icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#FEDE65"
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "enableSceneSupport": true
+          }
+        }
+      ]
     ],
-    "name": "merchant",
-    "slug": "merchant"
+    "name": "menuGet Shop",
+    "slug": "menuget_shop",
+    "ios": {
+      "bundleIdentifier": "com.wansing05.menuget_shop"
+    },
+    "android": {
+      "package": "com.wansing05.menuget_shop"
+    }
   }
 }
