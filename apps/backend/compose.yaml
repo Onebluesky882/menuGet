@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: menuget-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: menuget
+      POSTGRES_PASSWORD: menuget_dev_password
+      POSTGRES_DB: menuget
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U menuget -d menuget"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  postgres_data:

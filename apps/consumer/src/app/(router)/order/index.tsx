@@ -25,6 +25,7 @@ const orderSteps = [
 
 const OrderScreen = () => {
   const router = useRouter();
+
   // Mock: กำลังอยู่ในขั้นตอนปรุงอาหาร
   const activeStep = 1;
 
