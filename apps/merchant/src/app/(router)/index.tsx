@@ -10,7 +10,6 @@ export default function App() {
 
   const signOut = async () => {
     const signOutres = await authClient.signOut();
-    console.log(signOutres);
   };
 
   return (

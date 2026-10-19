@@ -1,6 +1,7 @@
 import { CartItem, MenuItem } from "@/type/Cart";
 import { Pressable, View, Text } from "react-native";
 import * as Haptics from "expo-haptics";
+import { hapticMedium } from "@/lib/haptic";
 
 type MenuItemCardProps = {
   menu: MenuItem;
@@ -9,12 +10,12 @@ type MenuItemCardProps = {
 
 export const MenuItemCard = ({ menu, addCartItem }: MenuItemCardProps) => {
   const handleAddToCart = () => {
-    void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    addCartItem({
-      id: menu.id,
-      menuItem: menu,
-      quantity: 1,
-    });
+    (hapticMedium(),
+      addCartItem({
+        id: menu.id,
+        menuItem: menu,
+        quantity: 1,
+      }));
   };
 
   return (

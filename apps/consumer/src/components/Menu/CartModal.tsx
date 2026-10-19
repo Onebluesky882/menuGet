@@ -11,8 +11,8 @@ type CartModalProps = {
   setOpen: Dispatch<SetStateAction<boolean>>;
   items: CartItem[];
   removeMenu: (id: string) => void;
-  orderType: string;
-  setOrderType: (type: "dining" | "takeOut") => void;
+  orderType?: string;
+  setOrderType?: (type: "dining" | "takeOut") => void;
 };
 
 export const CartModal = ({
@@ -20,15 +20,7 @@ export const CartModal = ({
   setOpen,
   items,
   removeMenu,
-  setOrderType,
-  orderType,
 }: CartModalProps) => {
-  useEffect(() => {
-    if (open && items.length === 0) {
-      setOpen(false);
-    }
-  }, [open, items.length, setOpen]);
-
   const router = useRouter();
 
   // ฟังก์ชันยืนยันสั่งกลับบ้าน

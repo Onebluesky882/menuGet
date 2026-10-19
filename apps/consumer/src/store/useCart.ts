@@ -9,6 +9,8 @@ type Cart = {
   removeMenu: (id: string) => void;
   clearCart: () => void;
   setOrderType: (type: "dining" | "takeOut") => void;
+  modalCartOpen: boolean;
+  setModelCartOpen: () => void;
 };
 
 export const useCart = create<Cart>((set) => ({
@@ -54,5 +56,13 @@ export const useCart = create<Cart>((set) => ({
   setOrderType: (type) =>
     set({
       orderType: type,
+    }),
+
+  modalCartOpen: false,
+  setModelCartOpen: () =>
+    set((state) => {
+      return {
+        modalCartOpen: !state.modalCartOpen,
+      };
     }),
 }));

@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React from "react";
+import { mockOrderTable } from "@/Mock/MockOrderTable";
 
 const QueueInformationCard = () => {
   return (

@@ -1,11 +1,21 @@
 import { useCart } from "@/store/useCart";
 import { NativeTabs } from "expo-router/unstable-native-tabs";
-
+import { hapticMedium } from "@/lib/haptic";
 const Layout = () => {
   const item = useCart((state) => state.items);
 
   const cartCount = item.reduce((total, item) => (total += item.quantity), 0);
   const hasCartCount = cartCount > 0;
+
+  const { setModelCartOpen, items } = useCart();
+
+  const handlePressMenu = () => {
+    if (items.length >= 1) {
+      setModelCartOpen();
+    }
+    hapticMedium();
+  };
+
   return (
     <NativeTabs minimizeBehavior="onScrollDown">
       <NativeTabs.Trigger name="homepage">
@@ -13,7 +23,12 @@ const Layout = () => {
         <NativeTabs.Trigger.Icon sf="house.fill" md="home" />
       </NativeTabs.Trigger>
 
-      <NativeTabs.Trigger name="menu">
+      <NativeTabs.Trigger
+        name="menu"
+        listeners={{
+          tabPress: handlePressMenu,
+        }}
+      >
         <NativeTabs.Trigger.Label>Menu</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf="menucard" md="restaurant_menu" />
         {hasCartCount && (

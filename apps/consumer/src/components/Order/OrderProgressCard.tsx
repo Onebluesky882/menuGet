@@ -1,10 +1,35 @@
 import { View, Text } from "react-native";
-import React from "react";
 
+type OrderStep = {
+  title: string;
+  description: string;
+};
 
-type OrderProgressProps = {
-  
-}
+const orderSteps: OrderStep[] = [
+  {
+    title: "รับออเดอร์แล้ว",
+    description: "ร้านได้รับออเดอร์ของคุณเรียบร้อยแล้ว",
+  },
+  {
+    title: "กำลังเตรียมอาหาร",
+    description: "เชฟกำลังปรุงอาหารให้คุณ",
+  },
+  {
+    title: "อาหารพร้อมเสิร์ฟ",
+    description: "อาหารของคุณพร้อมเสิร์ฟแล้ว",
+  },
+  {
+    title: "เสิร์ฟอาหารแล้ว",
+    description: "ขอให้อร่อยกับมื้ออาหารของคุณ",
+  },
+];
+
+// Mock active step: 0 = รับออเดอร์แล้ว
+// 1 = กำลังเตรียมอาหาร
+// 2 = อาหารพร้อมเสิร์ฟ
+// 3 = เสิร์ฟอาหารแล้ว
+const activeStep = 1;
+
 const OrderProgressCard = () => {
   return (
     <View className="mb-4 rounded-3xl border border-gray-100 bg-white p-5">
@@ -12,9 +37,8 @@ const OrderProgressCard = () => {
         <Text className="text-lg font-extrabold text-gray-900">
           ความคืบหน้า
         </Text>
-        <Text className="text-xs text-gray-500">
-          ส่งออเดอร์ {submittedAt}
-        </Text>
+
+        <Text className="text-xs text-gray-500">ออเดอร์ #1024</Text>
       </View>
 
       {orderSteps.map((step, index) => {
@@ -84,3 +108,4 @@ const OrderProgressCard = () => {
 };
 
 export default OrderProgressCard;
+ 

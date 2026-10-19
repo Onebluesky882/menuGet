@@ -1,5 +1,5 @@
+import { mockOrderTable } from "@/Mock/MockOrderTable";
 import { View, Text } from "react-native";
-import React from "react";
 
 const OrderedItemsCard = () => {
   return (
@@ -9,7 +9,7 @@ const OrderedItemsCard = () => {
           รายการอาหาร
         </Text>
 
-        <Text className="text-sm text-gray-500">{totalQuantity} ชิ้น</Text>
+        <Text className="text-sm text-gray-500">{} ชิ้น</Text>
       </View>
 
       {mockOrderTable.items.map((item, index) => (
@@ -44,7 +44,7 @@ const OrderedItemsCard = () => {
       <View className="mt-3 flex-row items-center justify-between border-t border-dashed border-gray-200 pt-4">
         <Text className="font-bold text-gray-700">ยอดรวม</Text>
         <Text className="text-xl font-extrabold text-orange-600">
-          ฿{totalPrice}
+          ฿totalPrice{}
         </Text>
       </View>
     </View>
