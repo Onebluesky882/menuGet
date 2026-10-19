@@ -4,7 +4,7 @@ import { View, Text, Pressable, Alert, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SymbolView } from "expo-symbols";
 
-const Order = () => {
+const PreOrder = () => {
   const { items, setOrderType, orderType } = useCart();
   const [showItems, setShowItems] = useState(true);
 
@@ -237,4 +237,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default PreOrder;

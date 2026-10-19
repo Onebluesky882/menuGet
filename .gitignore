@@ -38,3 +38,5 @@ yarn-error.*
 
 app-example
 apps/backend/.env
+apps/consumer/ios/*
+apps/consumer/android/*

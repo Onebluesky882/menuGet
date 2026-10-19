@@ -5,9 +5,12 @@ import { categories, menus } from "@/Mock/MockShopMenu";
 import { useCart } from "@/store/useCart";
 import { useStoreShop } from "@/store/useStoreShop";
 import { FlashList } from "@shopify/flash-list";
+import { useRouter } from "expo-router";
+
 import { useState } from "react";
 import { View, Text, Pressable, ScrollView, Modal } from "react-native";
 const ShopMenu = () => {
+  const router = useRouter();
   // if no shop ให้แสกน qr ก่อน เอาแค่ shopId เพื่อคนอยากแสกนดูแค่เมนู หรือสั่งกลับบ้าน
 
   /* 

@@ -22,6 +22,9 @@
       ]
     ],
     "name": "consumer",
-    "slug": "consumer"
+    "slug": "consumer",
+    "ios": {
+      "bundleIdentifier": "com.wansing05.consumer"
+    }
   }
 }

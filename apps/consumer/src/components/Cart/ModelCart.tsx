@@ -7,7 +7,7 @@ type Drawer = {
   open: boolean;
   setOpen: (open: boolean) => void;
 };
-export const ModelCart = ({
+const ModelCart = ({
   shopId,
   tableId,
   tableSession,
@@ -33,7 +33,7 @@ export const ModelCart = ({
       <Pressable
         className="mt-5 rounded-2xl bg-black p-4"
         onPress={() => {
-          router.push("/pre-order");
+          router.push("/cart");
           setOpen(false);
         }}
       >
@@ -44,3 +44,4 @@ export const ModelCart = ({
     </View>
   );
 };
+export default ModelCart;

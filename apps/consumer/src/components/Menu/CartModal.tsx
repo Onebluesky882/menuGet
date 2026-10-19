@@ -95,9 +95,12 @@ export const CartModal = ({
           {/* ปุ่มสั่งอาหาร */}
           <Pressable
             onPress={() => {
+              console.log("click");
               hapticMedium();
-              router.push("/pre-order");
               setOpen(false);
+              setTimeout(() => {
+                router.push("/cart");
+              }, 300);
             }}
             className="mt-5 items-center rounded-xl bg-slate-900 p-4"
           >
